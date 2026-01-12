@@ -1,6 +1,6 @@
 //DOM SELECTION
 
-console.log(document.title);
+console.log("Hello DOM");
 //Get ELement by ID
 const header = document.querySelector("#main-header");
 console.log(header);

@@ -3,25 +3,37 @@ name: Update Language Heatmap
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - heatmap.svg
+      - progress.json
 
 jobs:
   heatmap:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - run: |
+      - name: Get commit message
+        run: |
           echo "COMMIT_MSG=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
 
-      - run: node generate.js
+      - name: Generate heatmap
+        run: node generate.js
 
-      - run: |
+      - name: Commit & push if changed
+        run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add progress.json heatmap.svg
-          git commit -m "chore: update heatmap" || exit 0
+          git diff --cached --quiet || git commit -m "chore: update heatmap"
           git push
