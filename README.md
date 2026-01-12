@@ -1,8 +1,6 @@
 ## Language Practice Heatmap
 
 ![Heatmap](./heatmap.svg)
+🟨 JavaScript  🟦 TypeScript  🟩 Python
 
-### Legend
-- 🟨 JavaScript
-- 🟦 TypeScript
-- 🟩 Python
+

@@ -7,17 +7,18 @@ const COLORS = {
 };
 
 const EMPTY_FILL = "#ffffff";
-const EMPTY_STROKE = "#9be9a8"; // light green border
+const EMPTY_STROKE = "#9be9a8";
 
 const BOX = 14;
 const GAP = 4;
+const MONTH_GAP = 10; // extra gap between months
 const START_Y = 30;
 
 const progress = fs.existsSync("progress.json")
   ? JSON.parse(fs.readFileSync("progress.json"))
   : {};
 
-// date helpers
+// helpers
 function format(d) {
   return d.toISOString().slice(0, 10);
 }
@@ -41,35 +42,47 @@ startDate.setDate(startDate.getDate() - startDate.getDay());
 
 const dates = getAllDates(startDate, endDate);
 
-// SVG build (white background)
+// SVG
 let svg = `
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="220">
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="230">
   <rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
 `;
 
-// month labels
 let lastMonth = -1;
+let monthOffset = 0;
+let lastMonthWeek = 0;
 
 dates.forEach((date, i) => {
   const week = Math.floor(i / 7);
   const day = date.getDay();
 
-  const x = week * (BOX + GAP);
-  const y = START_Y + day * (BOX + GAP);
+  // detect month change
+  if (date.getMonth() !== lastMonth) {
+    if (lastMonth !== -1) {
+      monthOffset += MONTH_GAP;
+    }
+
+    const labelX =
+      week * (BOX + GAP) + monthOffset;
+
+    svg += `
+      <text x="${labelX}" y="20" fill="#444" font-size="10">
+        ${date.toLocaleString("en-US", { month: "short" })}
+      </text>
+    `;
+
+    lastMonth = date.getMonth();
+    lastMonthWeek = week;
+  }
+
+  const x =
+    week * (BOX + GAP) + monthOffset;
+  const y =
+    START_Y + day * (BOX + GAP);
 
   const key = format(date);
   const lang = progress[key];
   const isFilled = !!lang;
-
-  // month label
-  if (date.getMonth() !== lastMonth && day === 0) {
-    svg += `
-      <text x="${x}" y="20" fill="#444" font-size="10">
-        ${date.toLocaleString("en-US", { month: "short" })}
-      </text>
-    `;
-    lastMonth = date.getMonth();
-  }
 
   svg += `
     <rect
