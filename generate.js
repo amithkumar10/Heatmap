@@ -1,10 +1,11 @@
 const fs = require("fs");
+const { execSync } = require("child_process");
 
 const COLORS = {
-  JS: "#fde047",
-  TS: "#3178c6",
-  PY: "#3572A5",
-  EMPTY: "#2d333b"
+  JS: "#fde047",      // yellow
+  TS: "#3178c6",      // blue
+  PY: "#3572A5",      // python blue
+  EMPTY: "#ffffff"   // empty box
 };
 
 const BOX = 14;
@@ -13,9 +14,10 @@ const MONTH_GAP = 16;
 const START_Y = 40;
 
 const progress = fs.existsSync("progress.json")
-  ? JSON.parse(fs.readFileSync("progress.json"))
+  ? JSON.parse(fs.readFileSync("progress.json", "utf-8"))
   : {};
 
+// ---------- helpers ----------
 function format(d) {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -23,26 +25,42 @@ function format(d) {
   return `${y}-${m}-${day}`;
 }
 
+// ---------- read LAST REAL commit ----------
+let commitMsg = "";
+try {
+  commitMsg = execSync("git log -1 --pretty=%B").toString().trim();
+} catch {
+  commitMsg = "";
+}
 
+const msg = commitMsg.toUpperCase();
+
+// ---------- update today's progress ----------
+const today = new Date();
+const todayKey = format(today);
+
+if (msg.includes("JS")) progress[todayKey] = "JS";
+else if (msg.includes("TS")) progress[todayKey] = "TS";
+else if (msg.includes("PY")) progress[todayKey] = "PY";
+
+// persist progress
+fs.writeFileSync("progress.json", JSON.stringify(progress, null, 2));
+
+// ---------- SVG generation ----------
 const startYear = 2026;
-const endYear = 2026;
 
-let svgWidth = 1400;
-let svgHeight = 220;
-
-let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}">`;
+let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="220" style="background:#ffffff">`;
 
 let xCursor = 0;
 
 for (let month = 0; month < 12; month++) {
   const monthStart = new Date(startYear, month, 1);
   const monthName = monthStart.toLocaleString("en-US", { month: "short" });
-
   const daysInMonth = new Date(startYear, month + 1, 0).getDate();
 
-  // Month label
+  // month label
   svg += `
-    <text x="${xCursor}" y="20" fill="#adbac7" font-size="12">
+    <text x="${xCursor}" y="20" fill="#57606a" font-size="12">
       ${monthName}
     </text>
   `;
@@ -69,6 +87,8 @@ for (let month = 0; month < 12; month++) {
         height="${BOX}"
         rx="3"
         fill="${fill}"
+        stroke="#9be9a8"
+        stroke-width="1"
       />
     `;
   }
