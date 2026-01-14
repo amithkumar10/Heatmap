@@ -62,7 +62,7 @@ for (let month = 0; month < 12; month++) {
 
   // month label
   svg += `
-    <text x="${xCursor}" y="20" fill="#ffff" font-size="12">
+    <text x="${xCursor}" y="20" fill="#ffffff" font-size="12">
       ${monthName}
     </text>
   `;
