@@ -5,7 +5,7 @@ const COLORS = {
   JS: "#fde047",      // yellow
   TS: "#3178c6",      // blue
   PY: "#3572A5",      // python blue
-  EMPTY: "#ffffff"   // empty box
+  EMPTY: "#2e2c2c"   // empty box
 };
 
 const BOX = 14;
@@ -49,7 +49,7 @@ fs.writeFileSync("progress.json", JSON.stringify(progress, null, 2));
 // ---------- SVG generation ----------
 const startYear = 2026;
 
-let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="220" style="background:#ffffff">`;
+let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="220" style="background:#2e2c2c">`;
 
 let xCursor = 0;
 
