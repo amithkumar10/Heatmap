@@ -5,7 +5,7 @@ const COLORS = {
   JS: "#fde047",      // yellow
   TS: "#3178c6",      // blue
   PY: "#3572A5",      // python blue
-  EMPTY: "#1d1b1b"   // empty box
+  EMPTY: "#0d1117"   // empty box
 };
 
 const BOX = 14;
@@ -51,7 +51,7 @@ const startYear = 2026;
 
   EMPTY: "#1d1b1b"   // empty box
   EMPTY: "#1d1b1b"   // empty box
-let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="220" style="background:#1d1b1b">`;
+let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="220" style="background:#0d1117">`;
 
 let xCursor = 0;
 
@@ -62,7 +62,7 @@ for (let month = 0; month < 12; month++) {
 
   // month label
   svg += `
-    <text x="${xCursor}" y="20" fill="#57606a" font-size="12">
+    <text x="${xCursor}" y="20" fill="#ffff" font-size="12">
       ${monthName}
     </text>
   `;
