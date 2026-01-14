@@ -51,7 +51,7 @@ const startYear = 2026;
 
   EMPTY: "#1d1b1b"   // empty box
   EMPTY: "#1d1b1b"   // empty box
-let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="220" style="background:#161b22">`;
+let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="220" style="background:#0D1117">`;
 
 let xCursor = 0;
 
