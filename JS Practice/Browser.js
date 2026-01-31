@@ -1,6 +1,6 @@
 //Local Storgage Example
 
-localStorage.setItem("Naam", "Amith"); //Setting item in local storage  
+localStorage.setItem("Naam", "Amit"); //Setting item in local storage  
 
 console.log(localStorage.getItem("Naam")); //Getting item from local storage
 
