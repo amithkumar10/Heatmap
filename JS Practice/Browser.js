@@ -7,7 +7,7 @@ console.log(localStorage.getItem("Name")); //Getting item from local storage
 localStorage.removeItem("Name"); //Removing item from local storage
 console.log(localStorage.getItem("Name")); //Now it will return null as the item is removed
 
-localStorage.clear(); //Clearing all items from local storage
+localStorage.clear(); //Clearing all items from local storagee
 
 
 
