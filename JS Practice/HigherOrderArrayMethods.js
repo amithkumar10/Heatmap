@@ -42,6 +42,7 @@ console.log(typeof Companies);
 //Arrow Function
 Companies.forEach((company) => {
     console.log(company.name);
+    console.log(company.category);
 })
 
 //Regular Function
