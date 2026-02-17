@@ -68,7 +68,7 @@ const char = [...str]; //Spreading string into individual characters
 console.log(char);
 
 //Example 3: Copying an Array
-const arrCopy = [...arr1];
+const arrCopy = [...arr1];//Spreading arrCopy to log individual elements
 console.log(arrCopy);
 
 const arrCopy2 = [...arrCopy, -1, 0]; //Copying arrCopy and adding extra elements

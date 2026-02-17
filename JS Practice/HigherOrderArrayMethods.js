@@ -108,7 +108,7 @@ console.log(canDrinkk1);
 
 
 
-//map - use it when you want to create a new array from an existing array with some modifications. Note that we do not modify the original array.
+//map - used when you want to create a new array from an existing array with some modifications. Note that we do not modify the original array.
 
 const companyNames = Companies.map((company)=> company.name);
 console.log(companyNames);   
